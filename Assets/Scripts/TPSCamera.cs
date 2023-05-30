@@ -32,7 +32,7 @@ public class TPSCamera : MonoBehaviour
     private void Rotate()
     {
         Vector3 lookPoint = Camera.main.transform.position + Camera.main.transform.forward * lookDistance;
-        lookPoint.y = 0;
+        lookPoint.y = transform.position.y;
         transform.LookAt(lookPoint);
     }
 
