@@ -9,6 +9,7 @@ public class Fire : MonoBehaviour
 {
     [SerializeField] Rig aimRig;
     [SerializeField] float reloadTime;
+    [SerializeField] WeaponHolder weaponHolder;
 
     private Animator anim;
     private bool isFire = false;
@@ -39,6 +40,7 @@ public class Fire : MonoBehaviour
     {
         reload = false;
         anim.SetTrigger("Fire");
+        weaponHolder.Fire();
         yield return new WaitForSeconds(0.1f);
         reload = true;
     }
