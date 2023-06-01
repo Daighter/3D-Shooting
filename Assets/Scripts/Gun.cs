@@ -44,13 +44,13 @@ public class Gun : MonoBehaviour
 
     IEnumerator TrailRoutine(TrailRenderer trail, Vector3 startPoint, Vector3 endPoint)
     {
-        float tatoalTime = Vector2.Distance(startPoint, endPoint) / bulletSpeed;
+        float totalTime = Vector2.Distance(startPoint, endPoint) / bulletSpeed;
 
         float rate = 0;
         while (rate < 1)
         {
             trail.transform.position = Vector3.Lerp(startPoint, endPoint, rate);
-            rate += Time.deltaTime;
+            rate += Time.deltaTime / totalTime;
 
             yield return null;
         }
