@@ -1,25 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
 
 public class Fire : MonoBehaviour
 {
+    [SerializeField] Rig aimRig;
+    [SerializeField] float reloadTime;
+
     private Animator anim;
-    private TwoBoneIKConstraint twoBoneIk;
     private bool isFire = false;
     private bool reload = true;
+    private bool isReloading = false;
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
-        twoBoneIk = GetComponentInChildren<TwoBoneIKConstraint>();
     }
 
     private void Update()
     {
-        if (isFire && reload)
+        if (isFire && reload && !isReloading)
             StartCoroutine(KeepFire());
     }
 
@@ -42,6 +45,19 @@ public class Fire : MonoBehaviour
 
     private void OnReload(InputValue value)
     {
+        if (isReloading)
+            return;
+
+        StartCoroutine(ReloadRoutine());
+    }
+
+    IEnumerator ReloadRoutine()
+    {
         anim.SetTrigger("Reload");
+        isReloading = true;
+        aimRig.weight = 0f;
+        yield return new WaitForSeconds(reloadTime);
+        isReloading = false;
+        aimRig.weight = 1f;
     }
 }

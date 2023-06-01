@@ -47,7 +47,7 @@ public class PlayerMove : MonoBehaviour
         else if (!isWalking)
             moveSpeed = Mathf.Lerp(moveSpeed, walkSpeed, 0.5f);
         else
-            moveSpeed = Mathf.Lerp(moveSpeed, runSpeed,  0.5f);
+            moveSpeed = Mathf.Lerp(moveSpeed, runSpeed,  0.1f);
 
 
         controller.Move(transform.forward * moveDir.z * moveSpeed * Time.deltaTime);
