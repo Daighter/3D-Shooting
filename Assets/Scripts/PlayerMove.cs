@@ -44,7 +44,7 @@ public class PlayerMove : MonoBehaviour
         // 로컬기준 움직임
         if (moveDir.magnitude <= 0)         // 안움직임
             moveSpeed = Mathf.Lerp(moveSpeed, 0, 0.5f);
-        else if (isWalking)
+        else if (!isWalking)
             moveSpeed = Mathf.Lerp(moveSpeed, walkSpeed, 0.5f);
         else
             moveSpeed = Mathf.Lerp(moveSpeed, runSpeed,  0.5f);
