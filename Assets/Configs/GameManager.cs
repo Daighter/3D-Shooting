@@ -8,10 +8,12 @@ public class GameManager : MonoBehaviour
     public const string DefaultName = "Manager";
 
     private static GameManager instance;
-    private static PoolManager poolManager;
+    private static PoolManager pool;
+    private static ResourceManager resource;
 
     public static GameManager Instance { get { return instance; } }
-    public static PoolManager Data { get { return poolManager; } }
+    public static PoolManager Pool { get { return pool; } }
+    public static ResourceManager Resource { get { return resource; } }
 
     private void Awake()
     {
@@ -38,6 +40,10 @@ public class GameManager : MonoBehaviour
         // DataManager init
         GameObject poolObj = new GameObject() { name = "PoolManager" };
         poolObj.transform.SetParent(transform);
-        poolManager = poolObj.AddComponent<PoolManager>();
+        pool = poolObj.AddComponent<PoolManager>();
+
+        GameObject resourceObj = new GameObject() { name = "ResourceManager" };
+        resourceObj.transform.SetParent(transform);
+        resource = resourceObj.AddComponent<ResourceManager>();
     }
 }
