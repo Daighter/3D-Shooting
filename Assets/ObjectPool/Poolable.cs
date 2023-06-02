@@ -1,23 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using ObjectPooling;
 
-public class Poolable : MonoBehaviour
+namespace ObjectPooling
 {
-    [SerializeField] float releaseTime = 3f;
-
-    private ObjectPool pool;
-    public ObjectPool Pool { get { return pool; } set { pool = value; } }
-
-    private void OnEnable()
+    public class Poolable : MonoBehaviour
     {
-        StartCoroutine(ReleaseTimer());
-    }
+        [SerializeField] float releaseTime = 3f;
 
-    IEnumerator ReleaseTimer()
-    {
-        yield return new WaitForSeconds(releaseTime);
-        pool.Release(this);
+        private ObjectPool pool;
+        public ObjectPool Pool { get { return pool; } set { pool = value; } }
+
+        private void OnEnable()
+        {
+            StartCoroutine(ReleaseTimer());
+        }
+
+        IEnumerator ReleaseTimer()
+        {
+            yield return new WaitForSeconds(releaseTime);
+            pool.Release(this);
+        }
     }
 }
