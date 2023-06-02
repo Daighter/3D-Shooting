@@ -8,13 +8,6 @@ public class JT_Gun : MonoBehaviour
     [SerializeField] private int damage;
     [SerializeField] private ParticleSystem muzzleEffect;
 
-    private ParticleSystem bulletEffect;
-
-    public void Awake()
-    {
-        bulletEffect = GameManager.Resource.Load<ParticleSystem>("Prefabs/BulletHitEffect");
-    }
-
     public void Fire()
     {
         muzzleEffect.Play();
@@ -25,7 +18,7 @@ public class JT_Gun : MonoBehaviour
             IHittable target = hit.transform.GetComponent<IHittable>();
             target?.TakeDamage(hit, damage);
 
-            ParticleSystem effect = GameManager.Resource.Instantiate(bulletEffect, hit.point, Quaternion.LookRotation(hit.normal), true);
+            ParticleSystem effect = GameManager.Resource.Instantiate<ParticleSystem>("Prefabs/BulletHitEffect", hit.point, Quaternion.LookRotation(hit.normal), true);
             effect.transform.parent = hit.transform.transform;
             GameManager.Resource.Destroy(effect.gameObject, 3f);
 
